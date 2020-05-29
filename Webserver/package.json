@@ -40,7 +40,7 @@
     "nodemon": "^1.19.4",
     "requirejs": "^2.3.6",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.4",
+    "typescript": "^3.7.4"
   },
   "resolutions": {
     "**/cli-highlight": "2.1.4",
