@@ -1,0 +1,50 @@
+version: '3'
+services:
+  auth_server:
+    volumes:
+      - /var/www/auth/node_modules
+      - ./Webserver:/var/www/auth
+      - ./Provisioning/deployment/dev/dev.ormconfig.js:/var/www/auth/ormconfig.js
+    environment:
+      - ENV=DEV
+      - DB_TYPE=postgres
+      - DB_HOST=postgres_user
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_DB=auth
+      - BASE_HASH=2DB74B3BDDDCF088A1A5C415ACFACBFC9D29254ECA17895ECD4CCA58718413ED
+      - JWT_SECRET=JWT_SECRET
+    container_name: auth
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./Provisioning/node.dockerfile
+    tty: true
+    working_dir: /var/www/auth
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    links:
+      - postgres_user
+
+  postgres_user:
+    image: "postgres:11.7-alpine"
+    container_name: postgres_user
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: user
+    networks:
+      - app-network
+    volumes:
+      - ./Provisioning/deployment/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - ./Provisioning/deployment/init-db-test.sql:/docker-entrypoint-initdb.d/init-db-test.sql
+
+networks:
+  app-network:
+      driver: bridge

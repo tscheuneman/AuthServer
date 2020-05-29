@@ -1,0 +1,49 @@
+{
+  "name": "auth_server",
+  "version": "0.0.1",
+  "description": "A simple auth server",
+  "main": "./dist/app.js",
+  "scripts": {
+    "watch:server": "tsc -p ./tsconfig.json --watch",
+    "build:server": "tsc -p ./tsconfig.json",
+    "start": "nodemon ./dist/app.js -e ts --exec \"tsc -p ./tsconfig.json && node /var/www/auth/dist/app.js\"",
+    "start:prod": "node ./dist/app.js",
+    "test": "jest -i ./test/index.test.js --detectOpenHandles"
+  },
+  "author": {
+    "name": "Thomas Scheuneman",
+    "email": "thomas@tswebvisions.com",
+    "url": "https://github.com/tscheuneman"
+  },
+  "keywords": [
+    "Typescript"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "moment": "^2.24.0",
+    "pg": "^7.18.1",
+    "sha.js": "^2.4.11",
+    "typeorm": "^0.2.25",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/node": "^12.0.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/core": "^7.7.7",
+    "nodemon": "^1.19.4",
+    "requirejs": "^2.3.6",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4",
+  },
+  "resolutions": {
+    "**/cli-highlight": "2.1.4",
+    "**/chalk": "3.0.0"
+  }
+}
